@@ -5,7 +5,7 @@ var totalSettingsElem = document.querySelector(".totalSettings");
 var billItemTypeWithSettingsElem = document.querySelector(".billItemTypeWithSettings");
 
 //get a reference to the add button
-var primaryElem = document.querySelector(".addBtn");
+var primary = document.querySelector(".addBtn");
 
 //get references for the setting cost
 var callCostSettingElem = document.querySelector(".callCostSetting");
@@ -66,7 +66,7 @@ function billSettingTotal() {
 
   // * add nothing for invalid values that is not 'call' or 'sms'.
   colorBehaviour();
-};
+
 // * check the value thresholds and display the total value in the right color.
 function colorBehaviour() {
   if (totalSetting >= criticalLevelSetting) {
@@ -90,7 +90,9 @@ function colorBehaviour() {
     totalSettingsElem.classList.remove("danger")
     totalSettingsElem.classList.remove("warning")
   }
-}
+}primary.addEventListener("click", billSettingTotal)
 
+};
 //add an event listener for when the add button is pressed
-primaryElem.addEventListener("click", billSettingTotal);
+
+
