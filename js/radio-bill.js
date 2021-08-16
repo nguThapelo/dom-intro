@@ -1,50 +1,50 @@
 // get a reference to the sms or call radio buttons
-var callTotalTwoElement = document.querySelector(".callTotalTwo");
-var smsTotalTwoElement = document.querySelector(".smsTotalTwo");
-var totalTwoElement = document.querySelector(".totalTwo")
+const callTotalTwo = document.querySelector(".callTotalTwo");
+const smsTotalTwo = document.querySelector(".smsTotalTwo");
+const totalTwo = document.querySelector(".totalTwo")
 
 //get a reference to the add button
-var radioBillAddBtnElement = document.querySelector(".radioBillAddBtn");
+const radioBillAddBtn = document.querySelector(".radioBillAddBtn");
 
 //create a variable that will keep track of the total bill
 var totalCalls = 0;
-var totalSms = 0;
+var totalSmses = 0;
 
 //create the function that will calculate total bill when the bill type button is pressed
-function textBillTotal(){
+function totalBill(){
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
-var checkedRadioBtnElement = document.querySelector("input[name='billItemType']:checked");
+var getValue = document.querySelector("input[name='billItemTypeRadio']:checked");
 
 // * add the appropriate call value to the total
-if (checkedRadioBtnElement){
-    if (checkedRadioBtnElement.value === "call"){
+if (getValue){
+    if (getValue.value.includes("c")){
         totalCalls += 2.75;
     }
     // * add the appropriate sms value to the total
 
-    else if (checkedRadioBtnElement.value === "sms"){
-        totalSms += 0.75;
+    else if (getValue.value.includes("s")){
+        totalSmses += 0.75;
     } 
 }
 
 // * add nothing for invalid values that is not 'call' or 'sms'.
-callTotalTwoElement.innerHTML = totalCalls.toFixed(2);
-smsTotalTwoElement.innerHTML = totalSms.toFixed(2);
+callTotalTwo.innerHTML = totalCalls.toFixed(2);
+smsTotalTwo.innerHTML = totalSmses.toFixed(2);
 //declaire
-var TotalCost = totalCalls + totalSms;
+var TotalCost = totalCalls + totalSmses;
 
-totalTwoElement.innerHTML = TotalCost.toFixed(2);
+totalTwo.innerHTML = TotalCost.toFixed(2);
 
     // to display red when cost if greater than 50
 if (TotalCost > 50){
-    totalTwoElement.classList.add("danger");
+    totalTwo.classList.add("danger");
 }
 
     // to display orange when cost if greater or equal 30 and less than 50
     else if (TotalCost >= 30 && TotalCost < 50){
-    totalTwoElement.classList.add("warning");
+    totalTwo.classList.add("warning");
 }
 }
 //add an event listener for when the add button is pressed
-radioBillAddBtnElement.addEventListener('click', textBillTotal);
+radioBillAddBtn.addEventListener('click', totalBill);
