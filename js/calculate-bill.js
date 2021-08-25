@@ -11,7 +11,7 @@ const billStringX = document.querySelector(".billString");
 const billTotalE = document.querySelector(".total");
 
 //create the function that will be called when the calculate button is pressed
-function calculateBtnPressed() {
+function calculateBtnClicked() {
 
 //  * this function should read the string value entered - split it on a comma.
 var billString = billStringX.value;
@@ -27,6 +27,7 @@ var bills = billE[i].trim();
 
 if(bills.includes("c")) {
   billTotal += 2.75;
+  
 } else if (bills.includes("s")) {
   billTotal += 0.75;
 }
@@ -45,6 +46,7 @@ function styleRoundedBillTotal(roundBillTotal) {
 
   if(Total > 30) {
       billTotalE.classList.add("danger");
+
   } else if (Total >= 20 && Total < 30) {
     billTotalE.classList.add("warning");
 
@@ -55,6 +57,6 @@ billTotals.innerHTML = roundBillTotal;
   styleRoundedBillTotal(roundBillTotal);
 }
 
-calculateBtn.addEventListener("click", calculateBtnPressed);
+calculateBtn.addEventListener("click", calculateBtnClicked);
 
 

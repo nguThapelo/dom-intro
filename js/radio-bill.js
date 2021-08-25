@@ -14,16 +14,16 @@ var totalSmses = 0;
 function totalBill(){
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
-var getValue = document.querySelector("input[name='billItemTypeRadio']:checked");
+var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
 
 // * add the appropriate call value to the total
-if (getValue){
-    if (getValue.value.includes("c")){
+if (checkedRadioBtn){
+    if (checkedRadioBtn.value.includes("c")){
         totalCalls += 2.75;
     }
+    
     // * add the appropriate sms value to the total
-
-    else if (getValue.value.includes("s")){
+    else if (checkedRadioBtn.value.includes("s")){
         totalSmses += 0.75;
     } 
 }
@@ -31,16 +31,13 @@ if (getValue){
 // * add nothing for invalid values that is not 'call' or 'sms'.
 callTotalTwo.innerHTML = totalCalls.toFixed(2);
 smsTotalTwo.innerHTML = totalSmses.toFixed(2);
-//declaire
 var TotalCost = totalCalls + totalSmses;
-
 totalTwo.innerHTML = TotalCost.toFixed(2);
 
     // to display red when cost if greater than 50
 if (TotalCost > 50){
     totalTwo.classList.add("danger");
 }
-
     // to display orange when cost if greater or equal 30 and less than 50
     else if (TotalCost >= 30 && TotalCost < 50){
     totalTwo.classList.add("warning");
