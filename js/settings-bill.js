@@ -69,16 +69,19 @@ function Billsetting() {
 var inputType = billItem.value;
 
     if (inputType == "call") {
-        callTotal += callSettingCost;
+         callTotal += callSettingCost;  
 
     } else if (inputType == "sms") {
-        smsTotal += smsSettingCost;
-    }
-    callTotalSettings.innerHTML = callTotal.toFixed(2);
-    smsTotalSettings.innerHTML = smsTotal.toFixed(2);
+         smsTotal += smsSettingCost;
+            
 
+    }
+    callTotalSettings.innerHTML = callSettingCost.toFixed(2);
+    smsTotalSettings.innerHTML = smsSettingCost.toFixed(2);
+    //console.log(callSettingCost)
+    //console.log(smsSettingCost)
     // * display the latest total on the screen.
-    var totalCosts = callTotal + smsTotal;
+    var totalCosts = callSettingCost + smsSettingCost;
     var roundedTotal = totalCosts.toFixed(2);
 
     // * check the value thresholds and display the total value in the right color.
@@ -87,13 +90,10 @@ var inputType = billItem.value;
 
     } else if (totalCosts >= criticalLevel) {
         setting.classList.add("danger");
-        roundedTotal = criticalLevel;
+        //roundedTotal = criticalLevel;
     }
     setting.innerHTML = "R" + roundedTotal;
 
 }
 //add an event listener for when the add button is pressed
 addButton.addEventListener('click', Billsetting);
-
-
-
