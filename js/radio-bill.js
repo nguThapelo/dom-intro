@@ -1,47 +1,58 @@
-// get a reference to the sms or call radio buttons
 const callTotalTwo = document.querySelector(".callTotalTwo");
 const smsTotalTwo = document.querySelector(".smsTotalTwo");
 const totalTwo = document.querySelector(".totalTwo")
-
-//get a reference to the add button
 const radioBillAddBtn = document.querySelector(".radioBillAddBtn");
 
-//create a variable that will keep track of the total bill
 var totalCalls = 0;
 var totalSmses = 0;
 
-//create the function that will calculate total bill when the bill type button is pressed
-function totalBill(){
+function totalBill() {
 
-//in the event listener get the value from the billItemTypeRadio radio buttons
-var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
-
-// * add the appropriate call value to the total
-if (checkedRadioBtn){
-    if (checkedRadioBtn.value.includes("c")){
+    function makeCall() {
         totalCalls += 2.75;
     }
-    
-    // * add the appropriate sms value to the total
-    else if (checkedRadioBtn.value.includes("s")){
+
+    function sendSms() {
         totalSmses += 0.75;
-    } 
-}
+    }
 
-// * add nothing for invalid values that is not 'call' or 'sms'.
-callTotalTwo.innerHTML = totalCalls.toFixed(2);
-smsTotalTwo.innerHTML = totalSmses.toFixed(2);
-var TotalCost = totalCalls + totalSmses;
-totalTwo.innerHTML = TotalCost.toFixed(2);
+    function totalCost() {
+        totalCalls + totalSmses
+    }
 
-    // to display red when cost if greater than 50
-if (TotalCost > 50){
-    totalTwo.classList.add("danger");
+    function action(value) {
+        if (value.includes("c")) {
+            makeCall();
+        } else if (value.includes("s")) {
+            sendSms();
+        }
+
+    }
+    return {
+        makeCall,
+        sendSms,
+        action,
+        totalCost
+    }
 }
-    // to display orange when cost if greater or equal 30 and less than 50
-    else if (TotalCost >= 30 && TotalCost < 50){
-    totalTwo.classList.add("warning");
-}
-}
-//add an event listener for when the add button is pressed
-radioBillAddBtn.addEventListener('click', totalBill);
+const radio = totalBill();
+
+radioBillAddBtn.addEventListener('click', function () {
+    const checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
+    var billtype = checkedRadioBtn.value;
+    radio.action(billtype);
+
+
+    callTotalTwo.innerHTML = totalCalls.toFixed(2);
+    smsTotalTwo.innerHTML = totalSmses.toFixed(2);
+
+    var TotalCost = totalCalls + totalSmses;
+    totalTwo.innerHTML = TotalCost.toFixed(2);
+
+    if (TotalCost > 50) {
+        totalTwo.classList.add("danger");
+    }
+    else if (TotalCost >= 30 && TotalCost < 50) {
+        totalTwo.classList.add("warning");
+    }
+});

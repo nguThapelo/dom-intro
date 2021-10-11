@@ -1,52 +1,60 @@
-// get a reference to the textbox where the bill type is to be entered
 const billTypeText = document.querySelector(".billTypeText");
-
-//get a reference to the add button
 const addToBillBtn = document.querySelector(".addToBillBtn");
-
 const callTotalOne = document.querySelector(".callTotalOne");
 const smsTotalOne = document.querySelector(".smsTotalOne");
 const totalOne = document.querySelector(".totalOne")
+    
+    var totalCalls = 0;
+    var totalSmses = 0;
 
-//create a variable that will keep track of the total bill
-
-var totalCalls = 0;
-var totalSmses = 0;
-
-//create a function that will calculate the total bill
 function totalBill() {
 
-
-    var billTypeEntered = billTypeText.value.trim();
-
-    //in the event listener check if the value in the bill type textbox is 'sms' or 'call'
-    if (billTypeEntered.includes("c")) {
+    function makeCall() {
         totalCalls += 2.75;
-    }
-    else if (billTypeEntered.includes("s")) {
+    };
+
+    function sendSms() {
         totalSmses += 0.75;
-    }
-    // * add the appropriate value to the running total
-    callTotalOne.innerHTML = totalCalls.toFixed(2);
-    smsTotalOne.innerHTML = totalSmses.toFixed(2);
+    };
 
-    var totalCost = totalCalls + totalSmses;
-    totalOne.innerHTML = totalCost.toFixed(2);
+    function totalCost() {
+        return totalCalls + totalSmses;
+    };
 
-    // * add nothing for invalid values that is not 'call' or 'sms'.
+    function action(value) {
+        if (value.includes("c")) {
+            makeCall();
 
-    if (totalCost >= 50) {
-
-        //display red when total cost is greater than 50
-        totalOne.classList.add("danger");
-    }
-
-    //display orange when total cost is less than 50 or greater equal 30 
-    else if (totalCost >= 30) {
-        totalOne.classList.add("warning");
-    }
+        } else if (value.includes("s")) {
+            sendSms();
+        }
+    };
+    return {
+        makeCall,
+        sendSms,
+        totalCost,
+        action
+    };
 };
 
+const textBill = totalBill();
 
-//add an event listener for when the add button is pressed
-addToBillBtn.addEventListener('click', totalBill);
+addToBillBtn.addEventListener('click', function(){
+    var billTypeEntered = billTypeText.value.trim();
+textBill.action(billTypeEntered);
+
+callTotalOne.innerHTML = totalCalls.toFixed(2);
+smsTotalOne.innerHTML = totalSmses.toFixed(2);
+
+var totalCost = totalCalls + totalSmses;
+totalOne.innerHTML = totalCost.toFixed(2);
+
+if (totalCost >= 50) {
+    totalOne.classList.add("danger");
+} else if (totalCost >= 30) {
+    totalOne.classList.add("warning");
+} 
+
+});
+
+

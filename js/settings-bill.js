@@ -20,7 +20,7 @@ const updateSetting = document.querySelector(".updateSettings");
 // create a variables that will keep track of all totals.
 var callTotal = 0;
 var smsTotal = 0;
-
+var grandTotal =0;
 // create a variables that will keep track of all the settings
 var callSettingCost = 0;
 var smsSettingCost = 0;
@@ -39,7 +39,6 @@ function updatecostSetting() {
         callSettingCost = callCost;
         callTotal = 0;
     }
-//console.log(callCost)
     var smsCost = parseFloat(smsCostSetting.value);
     if (smsCost != 0) {
         smsSettingCost = smsCost;
